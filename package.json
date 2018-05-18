@@ -1,0 +1,23 @@
+{
+  "name": "ambient",
+  "version": "0.0.0",
+  "description": "Tessel project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "www.github.com/tessel/t2-cli",
+  "keywords": [
+    "Tessel"
+  ],
+  "license": "MIT",
+  "readme": "A bare bones Tessel 2 blinky script.",
+  "dependencies": {
+    "ambient-attx4": "^0.2.11",
+    "express": "^4.15.2",
+    "firebase": "^5.0.3",
+    "mysql": "file:node_modules/mysql",
+    "socket.io": "^2.1.1",
+    "websocket": "^1.0.26"
+  }
+}

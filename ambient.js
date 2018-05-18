@@ -1,20 +1,13 @@
-var config = {
-      apiKey: "AIzaSyAuxYEJL2tgqop9s9khcy-PF9SbygUKX6w",
-      authDomain: "eslab-d9ff5.firebaseapp.com",
-      databaseURL: "https://eslab-d9ff5.firebaseio.com",
-      projectId: "eslab-d9ff5",
-      storageBucket: "",
-      messagingSenderId: "44006788250"
-    };
-    firebase.initializeApp(config);
-var rootRef = firebase.database().ref().child('datas');
+//TODO
+// Import Firebase
+var Firebase = require('firebase');
+var myFirebaseRef = new Firebase("https://eslab-d9ff5.firebaseio.com/");
+var rootRef = myFirebaseRef.child("data");
 
 var tessel = require("tessel"),
 ambientLib = require("ambient-attx4"),
 ambient = ambientLib.use(tessel.port["A"]),
-WebSocket = require('ws'),
-ws = new WebSocket('ws://localhost:5000'),
-triggerVal = 0.22, lightdata, sounddata;
+triggerVal = 0.022, lightdata, sounddata;
 
 // When the module is connected
 ambient.on('ready', function () {
@@ -25,6 +18,13 @@ ambient.on('ready', function () {
        ambient.getSoundLevel( function(err, sounddata) {
          if (err) throw err;
          console.log("Light level:", lightdata.toFixed(8), " ", "Sound Level:", sounddata.toFixed(8));
+         rootRef.push().set({
+           title: "Ambient Data",
+           values: {
+             light: lightdata.toFixed(8),
+             sound: sounddata.toFixed(8)
+           }
+         });
        });
      });
    }, 500); // The readings will happen every .5 seconds
@@ -35,6 +35,7 @@ ambient.on('ready', function () {
   // When the sound trigger is reached
   ambient.on('sound-trigger', function triggerHit() {
     // send out data
+    //TODO
     rootRef.push({
       light: lightdata,
       sound: sounddata
